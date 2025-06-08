@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crescent Moon Love Message</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .typing-header {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #fff;
+      font-family: 'Dancing Script', cursive;
+      z-index: 5;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+      opacity: 0;
+      animation: fadeGlow 4s ease forwards;
+    }
+
+    @keyframes fadeGlow {
+      0% { opacity: 0; text-shadow: none; }
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffec8b;
+      }
+      100% {
+        opacity: 1;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ffec8b;
+      }
+    }
+
+    .sky {
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stars::before,
+    .twinkling::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-repeat: repeat;
+      z-index: 0;
+    }
+
+    .stars::before {
+      background-image: radial-gradient(white 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.4;
+      animation: twinkle 3s infinite;
+    }
+
+    .twinkling::before {
+      background-image: radial-gradient(white 0.5px, transparent 0.5px);
+      background-size: 2px 2px;
+      opacity: 0.2;
+      animation: shimmer 5s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.4; }
+    }
+
+    .stars, .twinkling {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 0;
+    }
+
+    .moon {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff700, #fef3a3);
+      box-shadow: 0 0 30px 8px rgba(255, 255, 150, 0.5);
+      z-index: 2;
+      animation: floatMoon 6s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #05010a;
+    }
+
+    @keyframes floatMoon {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -10px); }
+    }
+
+    .message-card {
+      position: absolute;
+      bottom: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 20px 30px;
+      width: 500px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 60px;
+      color: #fff;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      animation: fadeInUp 3s ease forwards, sparkle 5s ease-in-out infinite;
+      z-index: 2;
+      font-family: 'Dancing Script', cursive;
+      display: none;
+    }
+
+    .message-card h2, .message-card p {
+      margin: 10px 0;
+      font-size: 1.5rem;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translate(-50%, 30px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { box-shadow: 0 0 15px rgba(255,255,255,0.2); }
+      50% { box-shadow: 0 0 25px rgba(255,255,255,0.6); }
+    }
+
+    .fireflies {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .fireflies span {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff68f;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fly 10s linear infinite, flicker 3s ease-in-out infinite;
+    }
+
+    @keyframes fly {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(-50px, -100px) scale(1.2); }
+      50% { transform: translate(100px, -150px) scale(0.8); }
+      75% { transform: translate(-120px, 100px) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .heart-meteor {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/contain;
+      animation: shootHeart 2s ease-out forwards;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    @keyframes shootHeart {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(600px, 300px) rotate(720deg); opacity: 0; }
+    }
+
+    .love-chat-container1 {
+      position: absolute;
+      bottom: 90px;
+      left: 80%;
+      transform: translateX(-50%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .love-chat-bubble {
+      position: absolute;
+      background: rgba(13, 1, 1, 0.2);
+      color: #ededed;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 1rem;
+      animation: riseChat 4s ease-out forwards;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      white-space: nowrap;
+    }
+
+    @keyframes riseChat {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-200px) scale(1.2); opacity: 0; }
+    }
+
+    #final-message {
+      display: none;
+      position: absolute;
+      top: 45%;
+      width: 100%;
+      text-align: center;
+      font-size: 4em;
+      color: #f5e4e7;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    button {
+      background: #0c0909;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1 class="typing-header">Channa Mereya 🌙🤍</h1>
+  <div class="sky">
+    <canvas id="starsCanvas"></canvas>
+    <canvas id="shootingStars"></canvas>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="fireflies"></div>
+    <div class="moon" id="moon"></div>
+
+    <div class="message-card" id="messageCard">
+      <h2 contenteditable="true">To My Distant Love 🌙🤍</h2>
+      <p contenteditable="true">Even across the sky so wide,</p>
+      <p contenteditable="true">the moon glows just like your smile ✨</p>
+      <p contenteditable="true">You're always shining in my heart 💫.</p>
+      <p contenteditable="true">love you mu..!</p>
+      <button onclick="showFinalMessage()">💋 Tap me</button>
+    </div>
+
+    <div id="final-message">I love you more than all the stars in the sky 🌙❤️</div>
+    <div class="love-chat-container1" id="loveChatContainer"></div>
+  </div>
+
+  <audio id="backgroundMusic" loop>
+    <source src="adhm.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const moon = document.getElementById("moon");
+    const message = document.getElementById("messageCard");
+    const music = document.getElementById("backgroundMusic");
+
+    moon.addEventListener("click", () => {
+      message.style.display = (message.style.display === "none" || message.style.display === "") ? "block" : "none";
+      if (music.paused) music.play(); else music.pause();
+    });
+
+    const canvas = document.getElementById("shootingStars");
+    const ctx = canvas.getContext("2d");
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    class ShootingStar {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = random(0, width);
+        this.y = random(0, height / 2);
+        this.length = random(100, 200);
+        this.speed = random(10, 20);
+        this.size = random(1, 2);
+        this.waitTime = random(1000, 3000);
+        this.active = false;
+      }
+      draw() {
+        if (!this.active) {
+          if (this.waitTime > 0) {
+            this.waitTime -= 16;
+            return;
+          } else this.active = true;
+        }
+        this.x += this.speed;
+        this.y += this.speed * 0.5;
+        ctx.beginPath();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = this.size;
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x - this.length, this.y - this.length * 0.5);
+        ctx.stroke();
+        if (this.x > width || this.y > height) this.reset();
+      }
+    }
+
+    const shootingStars = [];
+    for (let i = 0; i < 5; i++) shootingStars.push(new ShootingStar());
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      shootingStars.forEach(star => star.draw());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    const firefliesContainer = document.querySelector('.fireflies');
+    for (let i = 0; i < 30; i++) {
+      const f = document.createElement('span');
+      f.style.left = `${Math.random() * 100}%`;
+      f.style.top = `${Math.random() * 100}%`;
+      f.style.animationDuration = `${8 + Math.random() * 4}s`;
+      f.style.animationDelay = `${Math.random() * 5}s`;
+      firefliesContainer.appendChild(f);
+    }
+
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart-meteor';
+      heart.style.top = `${Math.random() * 30 + 20}%`;
+      heart.style.left = `${Math.random() * 10}%`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    }, 6000);
+
+    const loveMessages = [
+      "You're my moon 🌙",
+      "Miss you diii 💌",
+      "Forever yours ❤️",
+      "My heartbeat 💓",
+      "Thinking of you 🌸",
+      "Love you more 💕",
+      "With lots of memories..!"
+    ];
+
+    function createLoveBubble() {
+      const bubble = document.createElement("div");
+      bubble.className = "love-chat-bubble";
+      bubble.innerText = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+      bubble.style.left = `${Math.random() * 60 + 20}%`;
+      document.getElementById("loveChatContainer").appendChild(bubble);
+      setTimeout(() => bubble.remove(), 4000);
+    }
+
+    setInterval(createLoveBubble, 3000);
+
+    function showFinalMessage() {
+      document.getElementById('messageCard').style.display = 'none';
+      document.getElementById('final-message').style.display = 'block';
+    }
+    
+  const starCanvas = document.getElementById("starsCanvas");
+  const starCtx = starCanvas.getContext("2d");
+  starCanvas.width = window.innerWidth;
+  starCanvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
+  });
+
+  class Star {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * starCanvas.width;
+      this.y = Math.random() * starCanvas.height;
+      this.radius = Math.random() * 1.5;
+      this.alpha = Math.random();
+      this.dx = (Math.random() - 0.5) * 0.3;
+      this.dy = (Math.random() - 0.5) * 0.3;
+    }
+    draw() {
+      starCtx.beginPath();
+      starCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      starCtx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+      starCtx.fill();
+    }
+    update() {
+      this.x += this.dx;
+      this.y += this.dy;
+      if (this.x < 0 || this.x > starCanvas.width || this.y < 0 || this.y > starCanvas.height) {
+        this.reset();
+      }
+      this.draw();
+    }
+  }
+
+  const stars = [];
+  for (let i = 0; i < 400; i++) {
+    stars.push(new Star());
+  }
+
+  function animateStars() {
+    starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+    stars.forEach(star => star.update());
+    requestAnimationFrame(animateStars);
+  }
+
+  animateStars();
+  </script>
+</body>
+</html>
